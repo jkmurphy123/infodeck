@@ -36,6 +36,9 @@ def build_conversations_panel(
         state._conv_logs_container = logs_list
         _render_daily_logs(state, daily_logs)
 
+    # Store sessions_dir for message loading
+    state._conv_sessions_dir = config.conversations.sessions_dir
+
 
 def _load_data(state: InfodeckUiState, config) -> None:
     """Load session data from disk."""
@@ -127,14 +130,7 @@ def _render_subject_detail(state: InfodeckUiState, group) -> None:
         ui.separator()
 
         for session in sorted(group.sessions, key=lambda s: s.date, reverse=True):
-            with ui.card().classes("w-full p-3 gap-1"):
-                ui.label(session.datetime).classes("text-xs text-slate-500")
-                ui.label(session.first_message[:120]).classes(
-                    "text-sm text-slate-700"
-                )
-                ui.label(
-                    f"{session.model} · {session.message_count} messages"
-                ).classes("text-xs text-slate-400")
+            _render_session_card(state, session)
 
 
 def _render_daily_detail(state: InfodeckUiState, log) -> None:
@@ -153,17 +149,132 @@ def _render_daily_detail(state: InfodeckUiState, log) -> None:
         ui.separator()
 
         for session in log.sessions:
-            with ui.card().classes("w-full p-3 gap-1"):
-                ui.label(session.datetime).classes("text-xs text-slate-500")
-                ui.label(session.first_message[:120]).classes(
-                    "text-sm text-slate-700"
+            _render_session_card(state, session)
+
+
+def _render_session_card(state: InfodeckUiState, session) -> None:
+    """Render a session card that opens a dialog with the full conversation."""
+    subjects_str = ", ".join(
+        session_data._subject_display_name(s) for s in session.subjects
+    )
+
+    with ui.card().classes(
+        "w-full p-3 gap-1 cursor-pointer hover:bg-slate-50"
+    ).on("click", lambda _ev, s=session: _open_conversation_dialog(state, s)):
+        ui.label(
+            f"{session.datetime} — {session.first_message[:80]}"
+        ).classes("text-sm font-medium text-slate-800")
+        ui.label(
+            f"{session.model} · {session.message_count} msgs · {subjects_str}"
+        ).classes("text-xs text-slate-400")
+        ui.label("Click to view full conversation").classes("text-xs text-slate-300")
+
+
+def _open_conversation_dialog(state: InfodeckUiState, session) -> None:
+    """Open a dialog showing the full conversation."""
+    sessions_dir = getattr(state, "_conv_sessions_dir", "")
+
+    # Load messages
+    try:
+        messages = session_data.load_conversation(sessions_dir, session.filename)
+    except Exception:
+        messages = []
+
+    # Build HTML
+    if not messages:
+        html_content = "<p>No messages available.</p>"
+    else:
+        parts = [
+            '<div style="max-height:70vh; overflow-y:auto; font-size:13px; '
+            'line-height:1.6; padding:8px;">'
+        ]
+        for msg in messages:
+            text = (msg.content
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;"))
+
+            if msg.is_reasoning:
+                parts.append(
+                    f'<div style="color:#94a3b8; font-style:italic; padding:2px 4px;">'
+                    f'💭 {text}</div>'
                 )
-                subjects_str = ", ".join(
-                    session_data._subject_display_name(s) for s in session.subjects
+            elif msg.role == "user":
+                parts.append(
+                    f'<div style="color:#1d4ed8; background:#eff6ff; padding:4px 6px; '
+                    f'border-radius:3px; margin:2px 0;">👤 {text}</div>'
                 )
-                ui.label(
-                    f"{session.model} · {session.message_count} msgs · {subjects_str}"
-                ).classes("text-xs text-slate-400")
+            elif msg.role == "tool":
+                parts.append(
+                    f'<div style="color:#64748b; font-family:monospace; font-size:11px; '
+                    f'padding:1px 4px;">{text}</div>'
+                )
+            elif msg.role == "assistant":
+                parts.append(
+                    f'<div style="color:#334155; background:#f8fafc; padding:4px 6px; '
+                    f'border-radius:3px; margin:2px 0;">{text}</div>'
+                )
+        parts.append('</div>')
+        html_content = "".join(parts)
+
+    with ui.dialog() as dialog, ui.card().classes("w-full max-w-4xl"):
+        ui.label(
+            f"{session.datetime} — {session.model} · {session.message_count} msgs"
+        ).classes("text-sm font-semibold text-slate-900")
+        ui.label(session.first_message[:200]).classes("text-xs text-slate-500 mb-2")
+        ui.separator()
+        ui.html(html_content)
+        ui.button("Close", on_click=dialog.close).props("flat")
+
+    dialog.open()
+
+
+def _load_conversation_html(sessions_dir: str, filename: str) -> None:
+    """Load conversation and render as a single scrollable HTML block."""
+    try:
+        messages = session_data.load_conversation(sessions_dir, filename)
+    except Exception:
+        ui.label("Could not load conversation.").classes("text-xs text-red-500 p-2")
+        return
+
+    if not messages:
+        ui.label("No messages in this session.").classes("text-xs text-slate-400 p-2")
+        return
+
+    # Build formatted HTML as a single string
+    html_parts = [
+        '<div style="max-height:500px; overflow-y:auto; font-size:12px; '
+        'line-height:1.5; border:1px solid #e2e8f0; border-radius:4px; padding:4px;">'
+    ]
+    for msg in messages:
+        text = (msg.content
+            .replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;"))
+
+        if msg.is_reasoning:
+            html_parts.append(
+                f'<div style="color:#94a3b8; font-style:italic; padding:2px 4px;">'
+                f'💭 {text}</div>'
+            )
+        elif msg.role == "user":
+            html_parts.append(
+                f'<div style="color:#1d4ed8; background:#eff6ff; padding:2px 4px; '
+                f'border-radius:2px; margin:1px 0;">👤 {text}</div>'
+            )
+        elif msg.role == "tool":
+            html_parts.append(
+                f'<div style="color:#64748b; font-family:monospace; font-size:11px; '
+                f'padding:1px 4px;">{text}</div>'
+            )
+        elif msg.role == "assistant":
+            html_parts.append(
+                f'<div style="color:#334155; background:#f8fafc; padding:2px 4px; '
+                f'border-radius:2px; margin:1px 0;">{text}</div>'
+            )
+    html_parts.append('</div>')
+
+    ui.html("".join(html_parts))
 
 
 def _format_date(date_str: str) -> str:

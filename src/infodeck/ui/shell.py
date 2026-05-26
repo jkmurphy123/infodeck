@@ -12,6 +12,10 @@ from infodeck.ui.conversations.list_panel import (
 from infodeck.ui.github_repos.list_panel import (
     build_repo_list_panel,
 )
+from infodeck.ui.memory.list_panel import (
+    build_memory_panel,
+    _render_editor as _render_memory_editor,
+)
 from infodeck.ui.status_bar import build_status_bar
 from infodeck.ui.top_bar import build_top_bar
 
@@ -50,11 +54,10 @@ def build_shell(
                 with conv_list:
                     build_conversations_panel(state=state, config=config)
 
-                # Memory list (M3 placeholder)
+                # Memory list
                 mem_list = ui.column().classes("w-full")
                 with mem_list:
-                    ui.label("Memory").classes("text-sm text-slate-400 p-4")
-                    ui.label("Coming in Milestone 3").classes("text-xs text-slate-400 p-4")
+                    build_memory_panel(state=state, config=config)
 
                 conv_list.set_visibility(False)
                 mem_list.set_visibility(False)
@@ -78,11 +81,10 @@ def build_shell(
                         "text-sm text-slate-400 p-4"
                     )
 
-                # Memory detail (M3 placeholder)
+                # Memory detail (editor)
                 mem_detail = ui.column().classes("w-full gap-3")
                 with mem_detail:
-                    ui.label("Memory Editor").classes("text-lg text-slate-400")
-                    ui.label("Coming in Milestone 3").classes("text-sm text-slate-400")
+                    _render_memory_editor(state, None, None)
 
                 conv_detail.set_visibility(False)
                 mem_detail.set_visibility(False)
@@ -90,5 +92,9 @@ def build_shell(
                 state._github_detail_container = gh_detail
                 state._conv_detail_container = conv_detail
                 state._mem_detail_container = mem_detail
+                state._mem_editor_container = mem_detail
+
+        # Store config for use by panels
+        state._config = config
 
         build_status_bar(state=state)

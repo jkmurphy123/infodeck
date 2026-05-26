@@ -221,3 +221,126 @@ def _subject_display_name(key: str) -> str:
         "general": "General",
     }
     return names.get(key, key.replace("_", " ").title())
+
+
+@dataclass
+class ConversationMessage:
+    """A single display-ready message from a session."""
+
+    role: str              # "user", "assistant", or "tool"
+    content: str           # display text
+    is_reasoning: bool = False
+    tool_name: str | None = None
+
+
+def load_conversation(sessions_dir: str | Path, filename: str) -> list[ConversationMessage]:
+    """Load a session file and extract display-ready messages.
+
+    Returns a list of ConversationMessage objects representing the full
+    conversation flow. Tool calls and reasoning are included as labeled
+    entries so the user can follow the agent's thought process.
+    """
+    filepath = Path(sessions_dir).expanduser() / filename
+    if not filepath.exists():
+        return []
+
+    try:
+        with filepath.open("r", encoding="utf-8") as f:
+            data = json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return []
+
+    messages = data.get("messages", [])
+    result: list[ConversationMessage] = []
+
+    for msg in messages:
+        role = msg.get("role", "unknown")
+
+        if role == "user":
+            content = _extract_text_content(msg.get("content", ""))
+            if content.strip():
+                result.append(ConversationMessage(
+                    role="user", content=content,
+                ))
+
+        elif role == "assistant":
+            # Reasoning content (agent's thinking)
+            reasoning = msg.get("reasoning_content") or msg.get("reasoning")
+            if reasoning and reasoning.strip():
+                result.append(ConversationMessage(
+                    role="assistant", content=reasoning.strip()[:500],
+                    is_reasoning=True,
+                ))
+
+            # Tool calls
+            tool_calls = msg.get("tool_calls") or []
+            for tc in tool_calls:
+                fn = tc.get("function", {})
+                name = fn.get("name", "unknown")
+                args_str = _summarize_args(fn.get("arguments", ""))
+                result.append(ConversationMessage(
+                    role="tool",
+                    content=f"→ {name}({args_str})",
+                    tool_name=name,
+                ))
+
+            # Assistant text content (after reasoning/tool calls)
+            content = _extract_text_content(msg.get("content", ""))
+            if content.strip():
+                result.append(ConversationMessage(
+                    role="assistant", content=content,
+                ))
+
+        elif role == "tool":
+            tool_name = msg.get("name", "unknown")
+            tool_content = _extract_text_content(msg.get("content", ""))
+            # Truncate long tool outputs
+            if len(tool_content) > 300:
+                tool_content = tool_content[:300] + "..."
+            result.append(ConversationMessage(
+                role="tool",
+                content=tool_content,
+                tool_name=tool_name,
+            ))
+
+    return result
+
+
+def _extract_text_content(content: str | list | dict) -> str:
+    """Extract plain text from potentially structured content."""
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        parts = []
+        for item in content:
+            if isinstance(item, dict) and item.get("type") == "text":
+                parts.append(item.get("text", ""))
+        return " ".join(parts)
+    if isinstance(content, dict):
+        return content.get("text", "")
+    return str(content) if content else ""
+
+
+def _summarize_args(args_str: str) -> str:
+    """Summarize tool call arguments for compact display."""
+    if not args_str:
+        return ""
+    try:
+        args = json.loads(args_str)
+        if not isinstance(args, dict):
+            return "..."
+        # Show first 2 meaningful keys
+        keys = [k for k in args if k not in ("content", "old_string")]
+        if not keys:
+            return "..."
+        parts = []
+        for k in keys[:2]:
+            v = args[k]
+            if isinstance(v, str) and len(v) > 40:
+                v = v[:40] + "..."
+            elif isinstance(v, (list, dict)):
+                v = "..."
+            parts.append(f"{k}={v!r}")
+        return ", ".join(parts)
+    except (json.JSONDecodeError, TypeError):
+        return "..."
