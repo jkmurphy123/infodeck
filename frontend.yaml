@@ -1,0 +1,15 @@
+ui:
+  title: Infodeck
+  default_mode: github
+
+github:
+  owner: jkmurphy123
+  cache_ttl_minutes: 5
+  local_projects_root: /home/ubuntu/ai_projects
+
+memory:
+  hermes_dir: /home/ubuntu/.hermes
+  backup_on_save: true
+
+conversations:
+  sessions_dir: /home/ubuntu/.hermes/sessions

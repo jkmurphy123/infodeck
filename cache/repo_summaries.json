@@ -1,0 +1,302 @@
+{
+  "BitStreamX": {
+    "analyzed_at": "2026-05-26T09:47:25.544146+00:00",
+    "language": null,
+    "source": "github_description",
+    "summary": "a python script to create a made up 10 day Weather Forecast for the planet Jupiter"
+  },
+  "VastLands": {
+    "analyzed_at": "2026-05-26T09:47:25.907811+00:00",
+    "language": "TypeScript",
+    "source": "github_description",
+    "summary": "Scrolling web-based explorer game"
+  },
+  "VesperionLoom": {
+    "analyzed_at": "2026-05-26T09:47:25.907770+00:00",
+    "language": null,
+    "source": "doc_analysis",
+    "summary": "A code project."
+  },
+  "aetherfall": {
+    "analyzed_at": "2026-05-26T09:47:25.544112+00:00",
+    "language": "Python",
+    "source": "fallback",
+    "summary": "A Python project."
+  },
+  "agent-playground-client": {
+    "analyzed_at": "2026-05-26T09:47:20.206227+00:00",
+    "language": "TypeScript",
+    "source": "doc_analysis",
+    "summary": "A TypeScript project."
+  },
+  "agent_games": {
+    "analyzed_at": "2026-05-26T09:47:20.585649+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A application for training agents with plug-in games"
+  },
+  "agent_hub": {
+    "analyzed_at": "2026-05-26T09:47:20.585647+00:00",
+    "language": null,
+    "source": "github_description",
+    "summary": "An http hub to process and coordinate multiple agents"
+  },
+  "agent_labyrinth": {
+    "analyzed_at": "2026-05-26T09:47:20.992853+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A series of challenges for autonomous agents to practise on"
+  },
+  "ai_projects": {
+    "analyzed_at": "2026-05-26T09:47:25.907803+00:00",
+    "language": null,
+    "source": "github_description",
+    "summary": "A collection of AI generated projects using a reusable harness"
+  },
+  "arcangelo": {
+    "analyzed_at": "2026-05-26T09:47:20.992864+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A midi composer using a local LLM"
+  },
+  "auralith_wallpaper": {
+    "analyzed_at": "2026-05-26T09:47:09.941674+00:00",
+    "language": "JavaScript",
+    "source": "github_description",
+    "summary": "A wallpaper widget that displays an RSS feed along with date and time"
+  },
+  "automancer": {
+    "analyzed_at": "2026-05-26T09:47:15.054252+00:00",
+    "language": "TypeScript",
+    "source": "github_description",
+    "summary": "A UI to teach users how to work with agents"
+  },
+  "autonomicon": {
+    "analyzed_at": "2026-05-26T09:47:19.893730+00:00",
+    "language": null,
+    "source": "fallback",
+    "summary": "A code project."
+  },
+  "axion": {
+    "analyzed_at": "2026-05-26T09:47:26.318062+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A fictional news site generated on-the-fly by local AI"
+  },
+  "cortexa": {
+    "analyzed_at": "2026-05-26T09:47:26.318086+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "An AI musing to itself using a local LLM"
+  },
+  "cygnos": {
+    "analyzed_at": "2026-05-26T09:47:26.317993+00:00",
+    "language": null,
+    "source": "doc_analysis",
+    "summary": "A code project."
+  },
+  "graviton": {
+    "analyzed_at": "2026-05-26T09:47:26.318071+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "An animated screen saver"
+  },
+  "infodeck": {
+    "analyzed_at": "2026-05-26T09:47:06.250419+00:00",
+    "language": null,
+    "source": "github_description",
+    "summary": "A personal wiki and Hermes diary app"
+  },
+  "iteron": {
+    "analyzed_at": "2026-05-26T09:47:26.318050+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A simulated ASCII window application"
+  },
+  "jellydatalab": {
+    "analyzed_at": "2026-05-26T09:47:25.907817+00:00",
+    "language": "TypeScript",
+    "source": "github_description",
+    "summary": "Tools for searching public datasets"
+  },
+  "kadathic_chat": {
+    "analyzed_at": "2026-05-26T09:47:20.585629+00:00",
+    "language": "Python",
+    "source": "doc_analysis",
+    "summary": "A NiceGUI frontend project for the Agent Foundry backend. This repository owns the user interface, local UI state, and a thin backend adapter. (Python)"
+  },
+  "kadathic_core": {
+    "analyzed_at": "2026-05-26T09:47:09.941683+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "The backend core libaries for Kadathic agents"
+  },
+  "kadathic_cryptogram": {
+    "analyzed_at": "2026-05-26T09:47:06.250437+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A python utility to generate and solve (via AI) cryptogram puzzles"
+  },
+  "kadathic_pulp": {
+    "analyzed_at": "2026-05-26T09:47:09.941690+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A pulp fiction AI assistant using the kadathic_core agent tool set."
+  },
+  "kinetix": {
+    "analyzed_at": "2026-05-26T09:47:26.318103+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A simulated chat app between 2 AI's"
+  },
+  "neuralis_control": {
+    "analyzed_at": "2026-05-26T09:47:20.585644+00:00",
+    "language": null,
+    "source": "github_description",
+    "summary": "A mission control interface for OpenClaw with expandable plugin modules"
+  },
+  "neuralis_core": {
+    "analyzed_at": "2026-05-26T09:47:15.054219+00:00",
+    "language": "Python",
+    "source": "doc_analysis",
+    "summary": "Core backend framework for reusable agent-driven application services. (Python)"
+  },
+  "neuralis_primus": {
+    "analyzed_at": "2026-05-26T09:47:14.746845+00:00",
+    "language": "Python",
+    "source": "doc_analysis",
+    "summary": "Tiny Panel UI proof-of-concept that validates modular integration with `neuralis-core`. (Python)"
+  },
+  "neuralis_secundus": {
+    "analyzed_at": "2026-05-26T09:47:14.282580+00:00",
+    "language": null,
+    "source": "fallback",
+    "summary": "A code project."
+  },
+  "neuralis_terminal": {
+    "analyzed_at": "2026-05-26T09:47:15.468435+00:00",
+    "language": "Python",
+    "source": "doc_analysis",
+    "summary": "This repository currently implements the foundation layer:. (Python)"
+  },
+  "prismata_display": {
+    "analyzed_at": "2026-05-26T09:47:09.941634+00:00",
+    "language": "Python",
+    "source": "doc_analysis",
+    "summary": "A kiosk app that displays full-screen animated data visualizations, controlled by a single rotary knob. Each \"plugin\" is a self-contained visualization (e.g. (Python)"
+  },
+  "quiz_master": {
+    "analyzed_at": "2026-05-26T09:47:20.992812+00:00",
+    "language": "Python",
+    "source": "doc_analysis",
+    "summary": "A 3-agent quiz system: - Researcher: builds the question bank - Quiz Master: runs the game - Contestant: answers questions. (Python)"
+  },
+  "radian": {
+    "analyzed_at": "2026-05-26T09:47:26.318044+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "2 autogen agents chatting with each other"
+  },
+  "serverless_messages": {
+    "analyzed_at": "2026-05-26T09:47:20.992891+00:00",
+    "language": "JavaScript",
+    "source": "github_description",
+    "summary": "A project to send SMS messages through a API endpoint"
+  },
+  "starfall": {
+    "analyzed_at": "2026-05-26T09:47:26.318056+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "Space exploration game"
+  },
+  "storycodex": {
+    "analyzed_at": "2026-05-26T09:47:09.941710+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A Codex-like agent to support creative writing"
+  },
+  "storycodex_ide": {
+    "analyzed_at": "2026-05-26T09:47:20.992900+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A GUI IDE to edit and rework scenes generated by StoryCodex"
+  },
+  "synlapse": {
+    "analyzed_at": "2026-05-26T09:47:25.907823+00:00",
+    "language": null,
+    "source": "github_description",
+    "summary": "A project to prune LLMs for the Jetson Orin Nano"
+  },
+  "trinculo": {
+    "analyzed_at": "2026-05-26T09:47:26.318038+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "Autogen driven AI agent to sell your junk"
+  },
+  "vesper": {
+    "analyzed_at": "2026-05-26T09:47:26.318076+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "An AI musing on a Jetson Orin Nano"
+  },
+  "vexilar": {
+    "analyzed_at": "2026-05-26T09:47:26.318092+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A GUI framework for LLM on a Jetson Orin Nano"
+  },
+  "world_muse": {
+    "analyzed_at": "2026-05-26T09:47:09.941697+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A wizard driven app to guide story creation"
+  },
+  "world_weaver": {
+    "analyzed_at": "2026-05-26T09:47:09.941716+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "Tools fo AI fictional world creation and expansion."
+  },
+  "world_weaver_ide": {
+    "analyzed_at": "2026-05-26T09:47:09.941703+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A NiceGUI app to work with world building tools"
+  },
+  "worldchat": {
+    "analyzed_at": "2026-05-26T09:47:20.992872+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A chatbot for world building"
+  },
+  "worldcodex": {
+    "analyzed_at": "2026-05-26T09:47:09.941722+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A world builder tool that supplies Codex-like CLI commands to pull data from it"
+  },
+  "worldcodex_art": {
+    "analyzed_at": "2026-05-26T09:47:20.992883+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "A CLI interface to generate artwork from a world description"
+  },
+  "xenon": {
+    "analyzed_at": "2026-05-26T09:47:26.318081+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "AI Personalities musing to themselves"
+  },
+  "zentheon": {
+    "analyzed_at": "2026-05-26T09:47:26.318097+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "AI voice assistant on Jetson Orin Nano"
+  },
+  "zork_ai": {
+    "analyzed_at": "2026-05-26T09:47:26.318029+00:00",
+    "language": "Python",
+    "source": "github_description",
+    "summary": "An AI generated Zork text adventure"
+  }
+}
